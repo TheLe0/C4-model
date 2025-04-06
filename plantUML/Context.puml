@@ -1,12 +1,20 @@
 @startuml Context
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(consolidator, "Consolidator", "User who registers the church visitor")
-System_Boundary(cl, "Consolidation System") {
-    System(mobile, "Consolidation Mobile App", "Mobile app for church visitors to register")
-    System(web, "Consolidation Website", "Website for church visitors to register")
+Person(consolidator, "Consolidator", "User who registers the church visitors")
+
+System_Boundary(consolidation_system, "Consolidation System") {
+    System(consolidation_app, "Consolidation App", "Application that helps in registering church visitors")
+
+    System_Ext(auth_system, "AuthSystem", "Manages authorization and authentication of users")
+    System_Ext(zipcode_api, "ZipCodeAPI", "External system responsible for registering and locating ZIP codes")
+
+    Rel(consolidation_app, auth_system, "Integrates with")
+    Rel(consolidation_app, zipcode_api, "Integrates with")
 }
 
-Rel(consolidator, web, "Accesses", "Browser")
-Rel(consolidator, mobile, "Accesses", "Mobile")
+Rel(consolidator, consolidation_app, "Uses")
+
+LAYOUT_WITH_LEGEND()
+
 @enduml
