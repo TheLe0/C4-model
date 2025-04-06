@@ -1,0 +1,12 @@
+@startuml Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(consolidator, "Consolidator", "User who registers the church visitor")
+System_Boundary(cl, "Consolidation System") {
+    System(mobile, "Consolidation Mobile App", "Mobile app for church visitors to register")
+    System(web, "Consolidation Website", "Website for church visitors to register")
+}
+
+Rel(consolidator, web, "Accesses", "Browser")
+Rel(consolidator, mobile, "Accesses", "Mobile")
+@enduml
